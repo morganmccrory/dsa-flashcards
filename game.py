@@ -1,4 +1,4 @@
-import csv
+import csv, os
 from card import Card
 
 class Game:
@@ -19,11 +19,26 @@ class Game:
 		if answer == card.answer:
 			card.answered(True)
 			print('Correct!')
-			print(card.num_correct)
 		else:
 			card.answered(False)
 			print('Incorrect!')
 			print('The correct answer was %s') % card.answer
+		self.save()
+
+	def save(self):
+		with open('temp.csv', 'w') as tempfile:
+			fieldnames = ['question', 'answer', 'category', 'correct', 'answered']
+			writer = csv.DictWriter(tempfile, fieldnames=fieldnames)
+			writer.writeheader()
+			for card in self.cards:
+				writer.writerow({
+					'question': card.question,
+					'answer': card.answer,
+					'category': card.category,
+					'correct': card.num_correct,
+					'answered': card.num_answered
+				})
+		os.rename('temp.csv', 'problems.csv')
 
 game = Game()
 game.play()
