@@ -1,2 +1,2 @@
-question,answer,category,correct,answered
-Test Question,Test Answer,Test Category,2,4
+question,answer,category,correct,answered,previous_answer
+Test Question,Test Answer,Test Category,6,19,True
